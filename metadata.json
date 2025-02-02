@@ -1,0 +1,928 @@
+{
+	"compiler": {
+		"version": "0.8.9+commit.e5eed63a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "int64",
+						"name": "_fee",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "EnforcedPause",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "ExpectedPause",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "GetTokenCustomFeesFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "GetTokenTypeFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "NFTTransferFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "SingleAssociationFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "TokenTransferFailed",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "int64",
+						"name": "endOfExemptionTimestamp",
+						"type": "int64"
+					}
+				],
+				"name": "AccountExempt",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "ExemptionRevoked",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "int64",
+						"name": "newFee",
+						"type": "int64"
+					}
+				],
+				"name": "FeeAmountUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "receiver",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "int64",
+						"name": "amount",
+						"type": "int64"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "davinciAddress",
+						"type": "address"
+					}
+				],
+				"name": "FeesWithdrawn",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "beneficiary",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "duration",
+						"type": "uint256"
+					}
+				],
+				"name": "LockCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "extraDuration",
+						"type": "uint256"
+					}
+				],
+				"name": "LockDurationExtended",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Paused",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "TokenAssociated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "actor",
+						"type": "address"
+					}
+				],
+				"name": "UnlockedNFTWithdrawn",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Unpaused",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "DAVINCI_ADDRESS",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "DAVINCI_TREASURY",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "MAX_FEE",
+				"outputs": [
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "associateToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "collectedFees",
+				"outputs": [
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					},
+					{
+						"internalType": "address",
+						"name": "beneficiary",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "duration",
+						"type": "uint256"
+					}
+				],
+				"name": "createLock",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "endOfExemptionTimestamp",
+						"type": "int64"
+					}
+				],
+				"name": "exemptAccount",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "exemptAccounts",
+				"outputs": [
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					},
+					{
+						"internalType": "uint256",
+						"name": "extraDuration",
+						"type": "uint256"
+					}
+				],
+				"name": "extendLockDuration",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "fee",
+				"outputs": [
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "getExemptAccount",
+				"outputs": [
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					}
+				],
+				"name": "getLockedNFT",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "beneficiary",
+								"type": "address"
+							},
+							{
+								"internalType": "int64",
+								"name": "start",
+								"type": "int64"
+							},
+							{
+								"internalType": "int64",
+								"name": "duration",
+								"type": "int64"
+							}
+						],
+						"internalType": "struct DaVinciGraphNFTLocker.Lock",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "",
+						"type": "int64"
+					}
+				],
+				"name": "locks",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "beneficiary",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "start",
+						"type": "int64"
+					},
+					{
+						"internalType": "int64",
+						"name": "duration",
+						"type": "int64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "paused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "revokeExemption",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "unpause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int64",
+						"name": "_fee",
+						"type": "int64"
+					}
+				],
+				"name": "updateFee",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdrawFees",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "int64",
+						"name": "serialNumber",
+						"type": "int64"
+					}
+				],
+				"name": "withdrawUnlockedNFT",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "The contract securely manages NFT transfers through Hedera Token Service (HTS) and prevents reentrancy attacks.",
+			"errors": {
+				"EnforcedPause()": [
+					{
+						"details": "The operation failed because the contract is paused."
+					}
+				],
+				"ExpectedPause()": [
+					{
+						"details": "The operation failed because the contract is not paused."
+					}
+				]
+			},
+			"events": {
+				"LockCreated(address,int64,address,address,uint256)": {
+					"params": {
+						"beneficiary": "The address of the beneficiary.",
+						"creator": "The address of the creator of the lock.",
+						"duration": "The lock duration in seconds.",
+						"serialNumber": "The serial number of the locked NFT.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				},
+				"LockDurationExtended(address,int64,uint256)": {
+					"params": {
+						"extraDuration": "The additional time (in seconds) added to the lock duration.",
+						"serialNumber": "The serial number of the locked NFT.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				},
+				"TokenAssociated(address)": {
+					"params": {
+						"token": "The address of the associated Non-Fungible Token."
+					}
+				},
+				"UnlockedNFTWithdrawn(address,int64,address)": {
+					"params": {
+						"actor": "The account performing the withdrawal.",
+						"serialNumber": "The serial number of the NFT.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"associateToken(address)": {
+					"details": "This function is restricted to non-fungible tokens (NFTs) and enables the locker to securely manage       specified NFTs through Hedera Token Service.",
+					"params": {
+						"token": "The address of the NFT token to be associated."
+					}
+				},
+				"constructor": {
+					"params": {
+						"_fee": "The fee (in DAVINCI tokens) to charge for each lock operation."
+					}
+				},
+				"createLock(address,int64,address,uint256)": {
+					"details": "Transfers the NFT from the sender to the locker contract and charges a fee in DAVINCI tokens.      Ensures the NFT is not already locked and validates all inputs.",
+					"params": {
+						"beneficiary": "The address of the account that will receive the NFT upon lock expiration.",
+						"duration": "The lock duration in seconds.",
+						"serialNumber": "The serial number of the NFT to be locked.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				},
+				"exemptAccount(address,int64)": {
+					"details": "Only callable by the contract owner. Ensures the account provided is valid (non-zero address).      If a timestamp is provided, it must be greater than the current time.      Emits an `AccountExempt` event upon successful exemption.",
+					"params": {
+						"account": "The address of the account to be exempted from paying fees.",
+						"endOfExemptionTimestamp": "The timestamp until which the account is exempt from fees.                   Use `-1` for a permanent exemption, or a future timestamp for temporary exemption."
+					}
+				},
+				"extendLockDuration(address,int64,uint256)": {
+					"details": "Only the beneficiary of the lock can extend the duration. A fee in DAVINCI tokens is charged for this operation.",
+					"params": {
+						"extraDuration": "The additional time (in seconds) to add to the lock duration.",
+						"serialNumber": "The serial number of the NFT.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				},
+				"getExemptAccount(address)": {
+					"details": "This is a view-only function that allows external callers to check the exemption status of an account.",
+					"params": {
+						"account": "The address of the account whose exemption status is being queried."
+					},
+					"returns": {
+						"_0": "The exemption status as an `int64` value:         - `-1`: The account is permanently exempt.         - A positive timestamp: The account is temporarily exempt until the specified time.         - `0` or absence of entry: The account is not exempt."
+					}
+				},
+				"getLockedNFT(address,int64)": {
+					"params": {
+						"serialNumber": "The serial number of the NFT.",
+						"token": "The address of the Non-Fungible Token."
+					},
+					"returns": {
+						"_0": "The lock details including creator, beneficiary, start time, and duration."
+					}
+				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"pause()": {
+					"details": "Only callable by the contract owner."
+				},
+				"paused()": {
+					"details": "Returns true if the contract is paused, and false otherwise."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"revokeExemption(address)": {
+					"details": "Only callable by the contract owner. Ensures the account is currently exempt (either       permanently or temporarily) before revocation. Emits an `ExemptionRevoked` event upon       successful revocation of the exemption.",
+					"params": {
+						"account": "The address of the account for which the exemption is to be revoked."
+					}
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"unpause()": {
+					"details": "Only callable by the contract owner."
+				},
+				"updateFee(int64)": {
+					"details": "The new fee must not exceed `MAX_FEE`, ensuring user protection against excessive fees.      Emits a `FeeAmountUpdated` event upon a successful update.",
+					"params": {
+						"_fee": "The new fee amount, denominated in DAVINCI tokens."
+					}
+				},
+				"withdrawFees()": {
+					"details": "Uses the SafeHTS library for secure transfer and ensures the function is non-reentrant.      Emits a `FeesWithdrawn` event upon successful withdrawal."
+				},
+				"withdrawUnlockedNFT(address,int64)": {
+					"details": "Ensures the lock duration has expired before allowing withdrawal. Deletes the lock entry upon successful transfer.",
+					"params": {
+						"serialNumber": "The serial number of the NFT to withdraw.",
+						"token": "The address of the Non-Fungible Token."
+					}
+				}
+			},
+			"stateVariables": {
+				"locks": {
+					"details": "Mapping structure to store locks:      - token => serialNumber => Lock"
+				}
+			},
+			"title": "DaVinciGraph NFT Locker",
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"LockCreated(address,int64,address,address,uint256)": {
+					"notice": "Emitted when a new NFT lock is created."
+				},
+				"LockDurationExtended(address,int64,uint256)": {
+					"notice": "Emitted when the lock duration for an NFT is extended."
+				},
+				"TokenAssociated(address)": {
+					"notice": "Emitted when a new Non-Fungible Token is successfully associated with the locker."
+				},
+				"UnlockedNFTWithdrawn(address,int64,address)": {
+					"notice": "Emitted when an NFT is withdrawn after the lock duration expires."
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"associateToken(address)": {
+					"notice": "Allows the contract to associate a new non-fungible token to the itself."
+				},
+				"constructor": {
+					"notice": "Initializes the NFT locker with a specified fee."
+				},
+				"createLock(address,int64,address,uint256)": {
+					"notice": "Allows a user to create a new lock for an NFT with a specific beneficiary and duration."
+				},
+				"exemptAccount(address,int64)": {
+					"notice": "Exempts an account from paying fees either temporarily or permanently."
+				},
+				"extendLockDuration(address,int64,uint256)": {
+					"notice": "Extends the duration of an existing NFT lock."
+				},
+				"getExemptAccount(address)": {
+					"notice": "Retrieves the exemption status of a specified account."
+				},
+				"getLockedNFT(address,int64)": {
+					"notice": "Retrieves the lock details for a specific NFT."
+				},
+				"pause()": {
+					"notice": "Pauses the contract, preventing association and lock creation operations."
+				},
+				"revokeExemption(address)": {
+					"notice": "Revokes an exemption previously granted to an account."
+				},
+				"unpause()": {
+					"notice": "Unpauses the contract, resuming association and lock creation operations."
+				},
+				"updateFee(int64)": {
+					"notice": "Updates the fee for operations. Only callable by the contract owner."
+				},
+				"withdrawFees()": {
+					"notice": "Withdraws collected fees to the treasury address."
+				},
+				"withdrawUnlockedNFT(address,int64)": {
+					"notice": "Allows the beneficiary or any other account on behalf of the beneficiary to withdraw an NFT          after the lock duration has expired."
+				}
+			},
+			"notice": "This contract allows users to securely lock non-fungible tokens (NFTs) on the Hedera network. Users can set          lock durations, designate beneficiaries, extend lock durations, and withdraw NFTs once the lock duration          has expired. The contract utilizes DAVINCI tokens for operation fees.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/DaVinciGraphNFTLocker.sol": "DaVinciGraphNFTLocker"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/DaVinciGraphNFTLocker.sol": {
+			"keccak256": "0x7ff45de1a269182031e9fbad8b24f62453a9060ba745f7ebef7b5285c3b149ea",
+			"license": "MIT",
+			"urls": ["bzz-raw://5fe205b2c003238982828359b8849cebe510063249b8a23e78434a2173062695", "dweb:/ipfs/QmRajv1mPsFf9EwmXtibSe5dJzo7LyV9SFyvWskiEEpd4k"]
+		},
+		"contracts/davincigraph/DavinciFeeChargable.sol": {
+			"keccak256": "0x229a86cb5b973f2a52b6e00c4da49c230d7a5b8dc55fa4cdadf096c1fbae6681",
+			"license": "MIT",
+			"urls": ["bzz-raw://4ee4c375c4791d75ed9c11ac5ebdf81df26bfffd88af3e973f2bff9282a4ef89", "dweb:/ipfs/QmWzWgptb64abTQbh89vPXs1YSg8sxYG8YzGvkzdiYFDD3"]
+		},
+		"contracts/hedera/HederaResponseCodes.sol": {
+			"keccak256": "0x0cc2b3a942f385ce6a1656b71fde674834748fd113f23e3a1ec10fd03c239b60",
+			"license": "Apache-2.0",
+			"urls": ["bzz-raw://5c408006afd10a9d78175c52a9651ede1948edc01a0485a6af312adaf7e14fb0", "dweb:/ipfs/QmTnbEzMECiwdkqqXkUd8hoJbcSEaHHyexWRHo66k7MDq2"]
+		},
+		"contracts/hedera/Helpers.sol": {
+			"keccak256": "0x590c7cbe4b66ee67dcbf09b0114996404d9354e368fac4f6bd722d7e41033325",
+			"license": "MIT",
+			"urls": ["bzz-raw://c54ecf9948377d1b75896a28511150c1980c166b4306f33aecbf4cdadc763c4f", "dweb:/ipfs/QmViurw22doEctU8GSm7UtLN6qciQ9HpebbDPZsZ15iAqb"]
+		},
+		"contracts/hedera/IHederaTokenService.sol": {
+			"keccak256": "0x0c02cbcbba48fcec7f617a4264f12c8b854b7eb6f5ad97f73f307869dac37e1a",
+			"license": "Apache-2.0",
+			"urls": ["bzz-raw://ed412aa8bde28f6b30dc012bd8163e8d9bbc0508b70e2afbe2b6f5279ed959f4", "dweb:/ipfs/QmYGFExjyGke5nJ5B9sw8BzBH9Rwm8SjJGwFw4pxSV3x7p"]
+		},
+		"contracts/hedera/SafeHTS.sol": {
+			"keccak256": "0x47f1ee9a0f33482bad4d78a7b63e9bf55c14cd339800576de78ef982ee9ef046",
+			"license": "Apache-2.0",
+			"urls": ["bzz-raw://b59e2951bf7e9bef1f3f4202814365c65c9797e81b7f5f512713689ccba92345", "dweb:/ipfs/QmX79N6i3BS248aoWB36k6imn9UxCvHCwCafDVuXfTBomP"]
+		},
+		"contracts/libraries/SafeCast.sol": {
+			"keccak256": "0x036a9c60ff2cb622056c5e1ec28e2f2cf075dc9f0120d1322053a9cc8cba406c",
+			"license": "MIT",
+			"urls": ["bzz-raw://2aba34d8a203104c437960dd8fc4f3cabaf48134d79778252e6bb17d8a6f7a6e", "dweb:/ipfs/QmawU9jjcLJKn6FojjTckkzXKhw1HyqZ3LPeeiuSgf3Lqa"]
+		},
+		"contracts/openzeppelin/Ownable.sol": {
+			"keccak256": "0xf8f40d61f4667475fbc89295b9250c178b1141b66d7aebdf7cc29c92142ba90b",
+			"license": "MIT",
+			"urls": ["bzz-raw://260f7f237eab9098a281920fc02e01a699f876e5869b55879d9b8820d23bde21", "dweb:/ipfs/QmdRQWVzNysdW7Dm2Ptp5NtZ2d62v5oYsn1sMHgjPMKMFu"]
+		},
+		"contracts/openzeppelin/Pausable.sol": {
+			"keccak256": "0x0f548216357fc6f3e9273e5d68cdb030b44bceab09356e3c7dc2749400876472",
+			"license": "MIT",
+			"urls": ["bzz-raw://7a91a48ebaf5945ecdeaa7edff9ffa99d82cf4c0bc8d1a30ef59012e41b097f2", "dweb:/ipfs/QmQgWE56YKRkszvpo5fLzf6fJuZN6hXnRnU96zqwV2v37V"]
+		},
+		"contracts/openzeppelin/ReentrancyGuard.sol": {
+			"keccak256": "0x9ee6c8acf121952a41313f4867edb72c13a9870a62f1c5aed102ba43b0cc9bef",
+			"license": "MIT",
+			"urls": ["bzz-raw://aa6d5e606b8798837fcf595077c13046eaa1c0e0d2945fd73bd77d3a5f76eb96", "dweb:/ipfs/QmdBtxtTftwvw2PBLFg7qNUj5Z9rf3xneQRi2AU6NRpQUu"]
+		}
+	},
+	"version": 1
+}
